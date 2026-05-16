@@ -48,7 +48,7 @@ const T = {
   },
   hi: {
     heroTitle: 'अपना घर खोजें<br><em>नए शहर में</em>',
-    heroSub: 'PG खोजें · किराया जानें · सिटी गाइड · इमरजेंसी हेल्पलाइन',
+     heroSub: 'वेरिफाइड PG · स्मार्ट किराया अनुमान · सिटी गाइड · SOS नंबर',
     searchPlaceholder: 'PG, इलाका या शहर खोजें...',
     pgHeading: city => `${city} में PG`,
     fareHeading: city => `${city} किराया कैलकुलेटर`,
@@ -275,6 +275,9 @@ window.onload = function(){
   const dp = localStorage.getItem('ss_dp');
   if(dp){ setProfilePics(dp); }
 
+    const statPGs = document.getElementById('statPGs');
+  if(statPGs) statPGs.textContent = `${pgData.length}+`;
+
   loadCity('Bhopal');
   renderNotifs();
 
@@ -363,13 +366,18 @@ function doLogin(){
   if(!name||!email||!pass){ alert(t('loginError')); return; }
   if(!email.includes('@')){ alert(t('invalidEmail')); return; }
 
-  // Check registered users
+  // Check registered users before creating a session.
   const users = JSON.parse(localStorage.getItem('ss_users')||'{}');
-  if(users[email]){
-    if(users[email].pass !== btoa(pass)){ alert(t('wrongPass')); return; }
+  if(!users[email]){
+    alert(t('userNotFound'));
+    showAuthTab('register');
+    document.getElementById('regName').value = name;
+    document.getElementById('regEmail').value = email;
+    return;
   }
+  if(users[email].pass !== btoa(pass)){ alert(t('wrongPass')); return; }
 
-  localStorage.setItem('ss_user',name);
+  localStorage.setItem('ss_user',users[email].name || name);
   localStorage.setItem('ss_email',email);
   document.getElementById('loginModal').style.display='none';
   updateProfileUI();
@@ -401,6 +409,8 @@ function doRegister(){
 
 function doGuest(){
   localStorage.setItem('ss_user','Guest');
+   localStorage.removeItem('ss_email');
+  localStorage.removeItem('ss_phone');
   document.getElementById('loginModal').style.display='none';
   updateProfileUI();
   loadCity(activeCity);
@@ -472,6 +482,7 @@ function saveProfile(){
 }
 
 function changeDP(e){
+  if(!e.target.files || !e.target.files[0]) return;
   const r=new FileReader();
   r.onload=ev=>{
     localStorage.setItem('ss_dp',ev.target.result);
@@ -488,7 +499,7 @@ function changeDP(e){
 function switchCity(city,btn){
   activeCity=city;
   document.querySelectorAll('.city-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  if(btn) btn.classList.add('active');
   loadCity(city);
 }
 
@@ -510,10 +521,14 @@ function loadCity(city){
 //  TAB SWITCH
 // =====================================================
 function switchTab(tab,btn){
+    const panel = document.getElementById('tab-'+tab);
+  if(!panel) return;
+  const tabBtn = btn || document.querySelector(`[data-tab=\"${tab}\"]`);
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  btn.classList.add('active');
+   panel.classList.add('active');
+  if(tabBtn) tabBtn.classList.add('active');
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // =====================================================
@@ -528,7 +543,7 @@ function renderPGs(){
   let list = pgData.filter(p=>{
     const price=parseInt(p.price.replace(/[^0-9]/g,''));
     return p.city===activeCity &&
-      (!search||p.name.toLowerCase().includes(search)) &&
+      (!search||[p.name,p.city,p.address,p.amenities].filter(Boolean).join(' ').toLowerCase().includes(search)) &&
       (!gender||p.gender===gender) &&
       price<=(maxPr||999999);
   });
@@ -764,9 +779,15 @@ function catIcon(cat){ return{hospital:'🏥',police:'🚔',atm:'🏧',food:'�
 //  SEARCH
 // =====================================================
 function quickSearch(val){
-  if(!val.trim()) return;
-  document.getElementById('pgSearch').value=val;
-  switchTab('pg',document.querySelector('.tab-btn'));
+   const query = (val || '').trim();
+  if(!query) return;
+  const city = Object.keys(cityData).find(c => c.toLowerCase() === query.toLowerCase());
+  if(city){
+    const cityBtn = Array.from(document.querySelectorAll('.city-btn')).find(btn => btn.textContent.toLowerCase().includes(city.toLowerCase()));
+    switchCity(city, cityBtn || document.querySelector('.city-btn'));
+  }
+  document.getElementById('pgSearch').value=query;
+  switchTab('pg',document.querySelector('[data-tab=pg]'));
   renderPGs();
 }
 
@@ -775,8 +796,13 @@ function heroSearch(val){ /* live preview optional */ }
 function doHeroSearch(){
   const val=document.getElementById('heroSearchInput').value.trim();
   if(!val) return;
+   const city = Object.keys(cityData).find(c => c.toLowerCase() === val.toLowerCase());
+  if(city){
+    const cityBtn = Array.from(document.querySelectorAll('.city-btn')).find(btn => btn.textContent.toLowerCase().includes(city.toLowerCase()));
+    switchCity(city, cityBtn || document.querySelector('.city-btn'));
+  }
   document.getElementById('pgSearch').value=val;
-  switchTab('pg',document.querySelector('.tab-btn'));
+  switchTab('pg',document.querySelector('[data-tab=pg]'));
   renderPGs();
 }
 
@@ -808,7 +834,7 @@ function searchCompare(val) {
   if (!results.length) { dd.classList.add('hidden'); return; }
   dd.innerHTML = results.map(p =>
     `<div class="compare-drop-item" onclick="addToCompare('${p.name.replace(/'/g,"\\'")}')">
-      ${p.name} — ₹${parseInt(p.price.replace(/\D/g,'').toLocaleString())}/mo · ${p.gender}
+       ${p.name} — ₹${parseInt(p.price.replace(/\D/g,'')).toLocaleString()}/mo · ${p.gender}
     </div>`
   ).join('');
   dd.classList.remove('hidden');
