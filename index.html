@@ -113,11 +113,11 @@
     </div>
     <h1 id="heroTitle">Find Your Home<br><em>Away From Home</em></h1>
     <p class="hero-sub" id="heroSub">PG Finder · Fare Calculator · City Guide · Emergency Helplines</p>
-  <div class="hero-actions">
+    <div class="hero-actions">
       <button class="hero-action primary" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))">Explore PGs</button>
       <button class="hero-action" onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))">Calculate Fare</button>
     </div>
-    
+
     <div class="hero-search">
       <div class="hero-search-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8460a" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -161,7 +161,7 @@
 <!-- TAB NAV -->
 <div class="tab-nav-wrap">
   <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchTab('pg',this)" data-tab="pg" data-en="🏠 PG Finder" data-hi="🏠 PG खोजें">🏠 PG Finder</button>
+    <button class="tab-btn active" onclick="switchTab('pg',this)" data-tab="pg" data-en="🏠 PG Finder" data-hi="🏠 PG खोजें">🏠 PG Finder</button>
     <button class="tab-btn" onclick="switchTab('fare',this)" data-tab="fare" data-en="🚗 Fare Calc" data-hi="🚗 किराया">🚗 Fare Calc</button>
     <button class="tab-btn" onclick="switchTab('guide',this)" data-tab="guide" data-en="🗺️ City Guide" data-hi="🗺️ सिटी गाइड">🗺️ City Guide</button>
     <button class="tab-btn" onclick="switchTab('helpline',this)" data-tab="helpline" data-en="📞 Helplines" data-hi="📞 हेल्पलाइन">📞 Helplines</button>
@@ -183,7 +183,7 @@
         <h2 id="pg-heading">PGs in Bhopal</h2>
         <p id="pg-count" class="panel-sub"></p>
       </div>
-      <button onclick="openModal('addPGModal')" class="btn-sm">+ List Your PG</button>
+      <button onclick="openModal('addPGModal')" class="btn-sm">+ Add Your PG</button>
     </div>
 
     <div class="filter-bar">
@@ -213,16 +213,6 @@
 
     <div id="pgGrid" class="pg-grid"></div>
 
-    <div class="list-pg-cta">
-      <div class="cta-left">
-        <div class="cta-icon">🏠</div>
-        <div>
-          <strong>Own a PG? List it for FREE!</strong>
-          <p>Reach thousands of students instantly</p>
-        </div>
-      </div>
-      <button onclick="openModal('addPGModal')">+ Add Your PG</button>
-    </div>
   </div>
 
   <!-- FARE CALCULATOR -->
@@ -450,7 +440,7 @@
     </div>
   </div>
 </main>
-  
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -473,7 +463,7 @@
       <div class="footer-col">
         <div class="footer-col-title">Quick Links</div>
         <a href="index.html">Home</a>
-      <a href="#" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'));return false">PG Finder</a>
+        <a href="#" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'));return false">PG Finder</a>
         <a href="#" onclick="switchTab('fare',document.querySelector('[data-tab=fare]'));return false">Fare Calculator</a>
         <a href="#" onclick="switchTab('guide',document.querySelector('[data-tab=guide]'));return false">City Guide</a>
       </div>
