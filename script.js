@@ -14,7 +14,7 @@ let currentLang  = 'en';
 const T = {
   en: {
     heroTitle: 'Find Your Home<br><em>Away From Home</em>',
-    heroSub: 'PG Finder · Fare Calculator · City Guide · Emergency Helplines',
+     heroSub: 'Verified PG discovery · Smart fare estimates · City survival guides · SOS contacts',
     searchPlaceholder: 'Search PG, area, or city...',
     pgHeading: city => `PGs in ${city}`,
     fareHeading: city => `${city} Fare Calculator`,
