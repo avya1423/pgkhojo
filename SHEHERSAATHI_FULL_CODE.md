@@ -125,6 +125,82 @@ Files included:
 </nav>
 
 <!-- HERO -->
+<header class="hero hero-v2">
+  <div class="hero-aurora aurora-one"></div>
+  <div class="hero-aurora aurora-two"></div>
+  <div class="hero-noise"></div>
+
+  <div class="hero-inner hero-v2-inner">
+    <section class="hero-v2-copy">
+      <div class="hero-kicker">⚡ New city setup in minutes</div>
+      <h1 id="heroTitle">Move to a new city<br><em>without the confusion.</em></h1>
+      <p class="hero-sub" id="heroSub">Find PGs, compare rent, estimate fares, plan budget and get safety help from one clean dashboard.</p>
+
+      <div class="hero-search hero-v2-search">
+        <div class="hero-search-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8460a" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="heroSearchInput" placeholder="Try: Girls PG under 7000 in Pune" onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
+          <button onclick="doHeroSearch()">Search</button>
+        </div>
+        <div class="smart-chips" aria-label="Popular quick searches">
+          <button onclick="runSmartSearch('PG under 7000')">PG under ₹7k</button>
+          <button onclick="runSmartSearch('Girls PG')">Girls PG</button>
+          <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))">Budget</button>
+          <button onclick="switchTab('ai',document.querySelector('[data-tab=ai]'))">Ask AI</button>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="hero-action primary" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))">Explore PGs</button>
+        <button class="hero-action" onclick="switchTab('checklist',document.querySelector('[data-tab=checklist]'))">Start Checklist</button>
+      </div>
+
+      <div class="city-selector city-selector-v2">
+        <button class="city-btn active" onclick="switchCity('Bhopal',this)">Bhopal</button>
+        <button class="city-btn" onclick="switchCity('Delhi',this)">Delhi</button>
+        <button class="city-btn" onclick="switchCity('Mumbai',this)">Mumbai</button>
+        <button class="city-btn" onclick="switchCity('Pune',this)">Pune</button>
+        <button class="city-btn" onclick="switchCity('Patna',this)">Patna</button>
+      </div>
+    </section>
+
+    <section class="city-console" aria-label="SheherSaathi city dashboard preview">
+      <div class="console-topbar">
+        <span></span><span></span><span></span>
+        <strong>SheherSaathi OS</strong>
+      </div>
+      <div class="console-grid">
+        <article class="console-card console-card-main">
+          <small>Recommended stay</small>
+          <h3>Lake View Girls PG</h3>
+          <p>₹6,500/mo · WiFi · Meals · Security</p>
+          <button onclick="runSmartSearch('Lake View Girls PG')">View match</button>
+        </article>
+        <article class="console-card">
+          <span>🚕</span>
+          <strong>Fare check</strong>
+          <p>Station → MP Nagar<br>₹80–120</p>
+        </article>
+        <article class="console-card">
+          <span>🆘</span>
+          <strong>Safety</strong>
+          <p>112 · Police · Hospital</p>
+        </article>
+        <article class="console-card wide">
+          <span>🤖</span>
+          <strong>AI tip</strong>
+          <p>“Search by budget + gender for faster PG shortlisting.”</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</header>
+
+<section class="quick-strip" aria-label="Platform highlights">
+  <button onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))"><strong id="statPGs">18+</strong><span>PG leads</span></button>
+  <button onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))"><strong>Fare</strong><span>Auto, cab, bike</span></button>
+  <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))"><strong>Budget</strong><span>Monthly planner</span></button>
+  <button onclick="switchTab('helpline',document.querySelector('[data-tab=helpline]'))"><strong>SOS</strong><span>112 + local help</span></button>
 <header class="hero">
   <div class="hero-orb hero-orb-one"></div>
   <div class="hero-orb hero-orb-two"></div>
@@ -1676,6 +1752,208 @@ body::before {
   .hero { padding-top: 118px; }
   .hero-device { display:none; }
   .trust-strip { grid-template-columns: 1fr; }
+}
+
+/* ===================== CLEAN V2 REDESIGN OVERRIDES ===================== */
+.hero-v2 {
+  min-height: 740px;
+  padding: 120px 20px 120px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(99,102,241,.35), transparent 24rem),
+    radial-gradient(circle at 88% 12%, rgba(20,184,166,.26), transparent 22rem),
+    linear-gradient(135deg, #07111f 0%, #10213d 46%, #20133b 100%);
+}
+.hero-v2::after { display: none; }
+.hero-aurora {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(28px);
+  opacity: .65;
+  pointer-events: none;
+}
+.aurora-one { width: 380px; height: 380px; left: -80px; top: 100px; background: #ff6b35; }
+.aurora-two { width: 420px; height: 420px; right: -110px; bottom: 40px; background: #2563eb; }
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, #000, transparent 78%);
+}
+.hero-v2-inner {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
+  gap: clamp(28px, 6vw, 76px);
+  align-items: center;
+}
+.hero-v2-copy { text-align: left; }
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #dbeafe;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.14);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  backdrop-filter: blur(16px);
+}
+.hero-v2 h1 {
+  margin-top: 22px;
+  max-width: 780px;
+  font-size: clamp(48px, 7vw, 92px);
+  line-height: .93;
+  letter-spacing: -4px;
+  text-align: left;
+}
+.hero-v2 h1 em {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(90deg, #fef3c7 0%, #fb923c 42%, #67e8f9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-style: normal;
+}
+.hero-v2 .hero-sub {
+  margin: 20px 0 0;
+  max-width: 620px;
+  text-align: left;
+  color: rgba(226,232,240,.84);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.7;
+}
+.hero-v2-search { max-width: 690px; margin: 28px 0 0; }
+.hero-v2 .hero-search-box {
+  border-radius: 22px;
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(255,255,255,.55);
+  box-shadow: 0 30px 80px rgba(0,0,0,.25);
+}
+.hero-v2 .smart-chips { justify-content: flex-start; }
+.hero-v2 .hero-actions { justify-content: flex-start; margin: 24px 0 0; }
+.city-selector-v2 { justify-content: flex-start; margin-top: 18px; }
+.city-selector-v2 .city-btn {
+  padding: 10px 14px;
+  color: rgba(255,255,255,.88);
+  background: rgba(255,255,255,.1);
+}
+.city-selector-v2 .city-btn.active { color: #08111f; background: #fff; }
+.city-console {
+  position: relative;
+  padding: 16px;
+  border-radius: 34px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 40px 110px rgba(0,0,0,.34);
+  backdrop-filter: blur(24px);
+}
+.city-console::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,.7), rgba(255,255,255,.04), rgba(20,184,166,.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.console-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 16px;
+  color: rgba(255,255,255,.72);
+  font-size: 12px;
+  font-weight: 900;
+}
+.console-topbar span { width: 10px; height: 10px; border-radius: 50%; background: #fb7185; }
+.console-topbar span:nth-child(2) { background: #fbbf24; }
+.console-topbar span:nth-child(3) { background: #34d399; }
+.console-topbar strong { margin-left: auto; letter-spacing: .08em; text-transform: uppercase; }
+.console-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.console-card {
+  min-height: 156px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255,255,255,.92);
+  color: #0f172a;
+  box-shadow: 0 20px 50px rgba(0,0,0,.14);
+}
+.console-card-main {
+  grid-column: 1 / -1;
+  min-height: 200px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,247,237,.92)),
+    radial-gradient(circle at 100% 0%, rgba(255,107,53,.24), transparent 14rem);
+}
+.console-card small {
+  display: inline-flex;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #ffedd5;
+  color: #c2410c;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.console-card h3 { margin: 18px 0 8px; font-family: 'Syne', sans-serif; font-size: 30px; letter-spacing: -1px; }
+.console-card p { margin: 0; color: #64748b; font-size: 13px; line-height: 1.7; }
+.console-card button { margin-top: 18px; border-radius: 999px; }
+.console-card span { display: block; font-size: 26px; margin-bottom: 12px; }
+.console-card strong { display:block; font-family:'Syne',sans-serif; font-size: 18px; margin-bottom: 8px; }
+.console-card.wide { grid-column: 1 / -1; min-height: 126px; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: start; }
+.console-card.wide span { grid-row: span 2; margin: 0; }
+.quick-strip {
+  width: min(1120px, calc(100% - 32px));
+  margin: -58px auto 0;
+  position: relative;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-radius: 30px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 24px 70px rgba(15,23,42,.14);
+  backdrop-filter: blur(20px);
+}
+.dark .quick-strip { background: rgba(15,23,42,.88); }
+.quick-strip button {
+  text-align: left;
+  padding: 16px;
+  border-radius: 22px;
+  color: var(--text);
+  background: var(--input);
+  box-shadow: none;
+}
+.quick-strip button:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(15,23,42,.12); }
+.quick-strip strong { display:block; font-family:'Syne',sans-serif; font-size: 18px; color: var(--text); }
+.quick-strip span { display:block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+@media (max-width: 980px) {
+  .hero-v2-inner { grid-template-columns: 1fr; }
+  .hero-v2-copy, .hero-v2 h1, .hero-v2 .hero-sub { text-align: center; margin-left: auto; margin-right: auto; }
+  .hero-v2 .hero-actions, .hero-v2 .smart-chips, .city-selector-v2 { justify-content: center; }
+  .hero-v2-search { margin-left: auto; margin-right: auto; }
+  .quick-strip { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: -38px; }
+}
+@media (max-width: 620px) {
+  .hero-v2 { padding-top: 136px; padding-bottom: 82px; }
+  .hero-v2 h1 { letter-spacing: -2px; }
+  .city-console { display: none; }
+  .quick-strip { grid-template-columns: 1fr; }
 }
 
 ```
