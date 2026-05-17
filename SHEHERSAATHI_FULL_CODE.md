@@ -130,6 +130,8 @@ Files included:
   <div class="hero-orb hero-orb-two"></div>
   <div class="hero-gridlines"></div>
   <div class="hero-inner">
+    <div class="hero-layout">
+      <section class="hero-copy">
     <div class="hero-badge">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       India's #1 City Companion App
@@ -181,11 +183,47 @@ Files included:
         <span>✅</span><strong>Move-in Checklist</strong><small>Never miss a step</small>
       </button>
     </div>
+      </section>
+
+      <aside class="hero-device" aria-label="SheherSaathi app preview">
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
+          <div class="phone-top">
+            <span>SheherSaathi</span>
+            <strong>Live city kit</strong>
+          </div>
+          <div class="phone-search">🔎 PG under ₹7k near station</div>
+          <div class="phone-card primary-card">
+            <small>Top match</small>
+            <strong>Lake View Girls PG</strong>
+            <span>₹6,500/mo · WiFi · Meals · Security</span>
+          </div>
+          <div class="phone-card-row">
+            <div class="mini-card">🚕<strong>Fare</strong><span>₹80–120</span></div>
+            <div class="mini-card">🆘<strong>SOS</strong><span>112</span></div>
+          </div>
+          <div class="phone-ai">
+            <div class="ai-dot">AI</div>
+            <p>“Try MP Nagar for budget PGs and easy transport.”</p>
+          </div>
+          <div class="phone-nav"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="floating-card fc-one">✅ OTP Login</div>
+        <div class="floating-card fc-two">⚡ Smart Search</div>
+      </aside>
+    </div>
   </div>
   <div class="hero-wave">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C360,65 1080,0 1440,35 L1440,60 L0,60Z" fill="var(--bg)"/></svg>
   </div>
 </header>
+
+<section class="trust-strip" aria-label="Platform highlights">
+  <div><strong>Fast OTP</strong><span>No password friction</span></div>
+  <div><strong>Smart Search</strong><span>City, budget, gender</span></div>
+  <div><strong>AI Guide</strong><span>Works on static hosting</span></div>
+  <div><strong>Safety First</strong><span>SOS and local helplines</span></div>
+</section>
 
 <!-- TAB NAV -->
 <div class="tab-nav-wrap">
@@ -1440,6 +1478,204 @@ body {
 @media (max-width: 560px) {
   .otp-input-row { flex-direction: column; }
   .otp-verify-btn { width: 100%; }
+}
+
+/* ===================== FRESH APP-LIKE UI POLISH ===================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,107,53,.12), transparent 22rem),
+    radial-gradient(circle at 78% 30%, rgba(37,99,235,.12), transparent 24rem),
+    radial-gradient(circle at 50% 85%, rgba(20,184,166,.12), transparent 26rem);
+}
+.hero {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  padding-top: 110px;
+  background:
+    linear-gradient(135deg, rgba(5,10,25,.97), rgba(13,23,52,.88) 52%, rgba(74,21,8,.78)),
+    radial-gradient(circle at 15% 30%, rgba(255,107,53,.3), transparent 28rem),
+    url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1800&q=80') center/cover;
+}
+.hero-inner { width: min(1180px, 100%); }
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .72fr);
+  gap: clamp(28px, 5vw, 70px);
+  align-items: center;
+}
+.hero-copy { text-align: left; }
+.hero-copy .hero-badge,
+.hero-copy .hero-search,
+.hero-copy .hero-stats,
+.hero-copy .hero-feature-grid { margin-left: 0; margin-right: 0; }
+.hero-copy .hero-actions,
+.hero-copy .city-selector,
+.hero-copy .smart-chips { justify-content: flex-start; }
+.hero-copy .hero-sub { margin-left: 0; }
+.hero-copy h1 { max-width: 760px; }
+.hero-device {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.phone-shell {
+  position: relative;
+  width: min(350px, 86vw);
+  min-height: 590px;
+  padding: 28px 20px 22px;
+  border-radius: 44px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.96), rgba(241,245,249,.94)),
+    radial-gradient(circle at 40% 0%, rgba(255,107,53,.2), transparent 12rem);
+  border: 9px solid rgba(15,23,42,.9);
+  box-shadow: 0 45px 110px rgba(0,0,0,.48), inset 0 0 0 1px rgba(255,255,255,.6);
+  transform: rotateY(-10deg) rotateX(5deg);
+  overflow: hidden;
+}
+.dark .phone-shell { background: linear-gradient(180deg, rgba(15,23,42,.98), rgba(30,41,59,.96)); }
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 116px;
+  height: 24px;
+  border-radius: 0 0 18px 18px;
+  background: rgba(15,23,42,.95);
+}
+.phone-top { margin-top: 20px; color: #0f172a; }
+.dark .phone-top { color: #f8fafc; }
+.phone-top span { display:block; font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+.phone-top strong { display:block; font-family:'Syne',sans-serif; font-size: 26px; letter-spacing: -1px; margin-top: 4px; }
+.phone-search {
+  margin: 18px 0;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(15,23,42,.08);
+}
+.dark .phone-search { background: rgba(15,23,42,.85); color: #e2e8f0; }
+.phone-card {
+  padding: 18px;
+  border-radius: 24px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff6b35, #f59e0b);
+  box-shadow: 0 24px 45px rgba(255,107,53,.28);
+}
+.phone-card small { display:block; opacity:.82; font-weight:700; margin-bottom:6px; }
+.phone-card strong { display:block; font-family:'Syne',sans-serif; font-size:20px; }
+.phone-card span { display:block; margin-top:8px; font-size:12px; opacity:.9; }
+.phone-card-row { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+.mini-card {
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.84);
+  color: #0f172a;
+  box-shadow: 0 12px 28px rgba(15,23,42,.07);
+}
+.dark .mini-card { background: rgba(15,23,42,.72); color: #f8fafc; }
+.mini-card strong { display:block; margin:8px 0 2px; font-size:13px; }
+.mini-card span { color: var(--muted); font-size:12px; }
+.phone-ai {
+  display:flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(20,184,166,.12));
+  color: #0f172a;
+}
+.dark .phone-ai { color: #f8fafc; }
+.ai-dot {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg, #2563eb, #14b8a6);
+  color:#fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+.phone-ai p { margin:0; font-size: 13px; line-height: 1.55; font-weight: 600; }
+.phone-nav { position:absolute; left:30px; right:30px; bottom:18px; display:flex; justify-content:space-around; }
+.phone-nav span { width:34px; height:5px; border-radius:20px; background: rgba(15,23,42,.14); }
+.dark .phone-nav span { background: rgba(255,255,255,.2); }
+.floating-card {
+  position: absolute;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.22);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 45px rgba(0,0,0,.22);
+}
+.fc-one { top: 64px; right: 6px; animation: floatUp 4.8s ease-in-out infinite; }
+.fc-two { bottom: 90px; left: 0; animation: floatUp 5.4s ease-in-out infinite reverse; }
+.trust-strip {
+  width: min(1120px, calc(100% - 32px));
+  margin: -46px auto 0;
+  position: relative;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.84);
+  border: 1px solid var(--border);
+  box-shadow: 0 22px 65px rgba(15,23,42,.12);
+  backdrop-filter: blur(18px);
+}
+.dark .trust-strip { background: rgba(15,23,42,.82); }
+.trust-strip div { padding: 14px 16px; border-radius: 20px; background: var(--input); }
+.trust-strip strong { display:block; font-family:'Syne',sans-serif; font-size:15px; color: var(--text); }
+.trust-strip span { display:block; margin-top:4px; font-size:12px; color: var(--muted); }
+.pg-card, .budget-card, .fare-box, .tips-card, .ai-chat-wrap, .checklist-category, .nearby-item, .helpline-item {
+  position: relative;
+  overflow: hidden;
+}
+.pg-card::before, .budget-card::before, .fare-box::before, .tips-card::before, .ai-chat-wrap::before, .checklist-category::before {
+  content:'';
+  position:absolute;
+  inset:0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b35, #f59e0b, #14b8a6, #2563eb);
+  opacity:.9;
+}
+@media (max-width: 980px) {
+  .hero-layout { grid-template-columns: 1fr; }
+  .hero-copy, .hero-copy .hero-sub { text-align: center; margin-left:auto; margin-right:auto; }
+  .hero-copy .hero-badge,
+  .hero-copy .hero-search,
+  .hero-copy .hero-stats,
+  .hero-copy .hero-feature-grid { margin-left:auto; margin-right:auto; }
+  .hero-copy .hero-actions, .hero-copy .city-selector, .hero-copy .smart-chips { justify-content:center; }
+  .hero-device { min-height: 420px; }
+  .phone-shell { transform: none; min-height: 520px; }
+  .trust-strip { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: -28px; }
+}
+@media (max-width: 560px) {
+  .hero { padding-top: 118px; }
+  .hero-device { display:none; }
+  .trust-strip { grid-template-columns: 1fr; }
 }
 
 ```
