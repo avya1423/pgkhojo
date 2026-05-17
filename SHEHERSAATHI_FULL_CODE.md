@@ -201,6 +201,23 @@ Files included:
   <button onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))"><strong>Fare</strong><span>Auto, cab, bike</span></button>
   <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))"><strong>Budget</strong><span>Monthly planner</span></button>
   <button onclick="switchTab('helpline',document.querySelector('[data-tab=helpline]'))"><strong>SOS</strong><span>112 + local help</span></button>
+</section>
+
+<section class="intent-hub" aria-label="What do you want to do on SheherSaathi">
+  <div class="intent-heading">
+    <span>Choose your task</span>
+    <h2>Everything you need in a new city</h2>
+    <p>Quick actions for PG search, city navigation, food, transport, roommates, emergency help and AI guidance.</p>
+  </div>
+  <div class="intent-grid">
+    <button class="intent-card" onclick="handleIntent('pg')"><span>🏠</span><strong>Find PG</strong><small>Budget, gender and area filters</small></button>
+    <button class="intent-card" onclick="handleIntent('navigate')"><span>🧭</span><strong>Navigate city</strong><small>Arrival guide and nearby places</small></button>
+    <button class="intent-card" onclick="handleIntent('ai')"><span>🤖</span><strong>Ask AI for help</strong><small>Ask about PGs, fares and safety</small></button>
+    <button class="intent-card" onclick="handleIntent('food')"><span>🍽️</span><strong>Find food</strong><small>Local food spots and essentials</small></button>
+    <button class="intent-card" onclick="handleIntent('transport')"><span>🚕</span><strong>Get transport guidance</strong><small>Fare calculator and travel tips</small></button>
+    <button class="intent-card" onclick="handleIntent('roommates')"><span>👥</span><strong>Connect with roommates</strong><small>Post your roommate preference</small></button>
+    <button class="intent-card danger" onclick="handleIntent('emergency')"><span>🆘</span><strong>Access emergency help</strong><small>Police, ambulance and SOS numbers</small></button>
+  </div>
 <header class="hero">
   <div class="hero-orb hero-orb-one"></div>
   <div class="hero-orb hero-orb-two"></div>
@@ -791,6 +808,27 @@ Files included:
       <button onclick="addNewPG()">✅ Submit Listing</button>
       <button class="btn-ghost" onclick="closeModal('addPGModal')">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- ROOMMATE CONNECT MODAL -->
+<div id="roommateModal" class="overlay hidden">
+  <div class="modal">
+    <div class="modal-top">
+      <h3>👥 Connect with Roommates</h3>
+      <button class="close-btn" onclick="closeModal('roommateModal')">✕</button>
+    </div>
+    <p class="modal-note">Share your city, budget and preference. This saves locally on your device for now.</p>
+    <div class="input-group"><label>Your Name</label><input id="roommateName" class="m-input" placeholder="e.g. Avya"></div>
+    <div class="input-group"><label>City</label>
+      <select id="roommateCity" class="m-input"><option>Bhopal</option><option>Delhi</option><option>Mumbai</option><option>Pune</option><option>Patna</option></select>
+    </div>
+    <div class="input-group"><label>Budget / Preference</label><input id="roommatePref" class="m-input" placeholder="e.g. Boys PG under ₹7000 near MP Nagar"></div>
+    <div class="modal-btns">
+      <button onclick="saveRoommatePost()">Post Interest</button>
+      <button class="btn-ghost" onclick="closeModal('roommateModal')">Close</button>
+    </div>
+    <div id="roommateList" class="roommate-list"></div>
   </div>
 </div>
 
@@ -1956,6 +1994,58 @@ body::before {
   .quick-strip { grid-template-columns: 1fr; }
 }
 
+/* ===================== INTENT HUB REDESIGN ===================== */
+.intent-hub {
+  width: min(1160px, calc(100% - 32px));
+  margin: 28px auto 0;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: 34px;
+  background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(248,250,252,.78));
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 70px rgba(15,23,42,.1);
+  backdrop-filter: blur(18px);
+}
+.dark .intent-hub { background: linear-gradient(135deg, rgba(15,23,42,.86), rgba(30,41,59,.66)); }
+.intent-heading { max-width: 720px; margin-bottom: 22px; }
+.intent-heading span {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: var(--brand);
+  background: var(--brand-light);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.intent-heading h2 { margin: 12px 0 8px; font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px); letter-spacing: -1.5px; }
+.intent-heading p { color: var(--muted); line-height: 1.7; }
+.intent-grid { display: grid; grid-template-columns: repeat(7, minmax(130px, 1fr)); gap: 12px; }
+.intent-card {
+  min-height: 168px;
+  padding: 18px;
+  text-align: left;
+  border-radius: 26px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 34px rgba(15,23,42,.06);
+}
+.intent-card:hover { transform: translateY(-6px); box-shadow: 0 24px 54px rgba(15,23,42,.12); }
+.intent-card span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 16px; background: var(--input); font-size: 21px; margin-bottom: 14px; }
+.intent-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 16px; color: var(--text); margin-bottom: 7px; }
+.intent-card small { display: block; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.intent-card.danger span { background: #fee2e2; }
+.intent-card.danger strong { color: #dc2626; }
+.modal-note { color: var(--muted); font-size: 13px; line-height: 1.6; margin: -8px 0 16px; }
+.roommate-list { margin-top: 16px; display: grid; gap: 10px; }
+.roommate-item, .roommate-empty { padding: 12px 14px; border-radius: 16px; background: var(--input); border: 1px solid var(--border); }
+.roommate-item strong { display: block; font-size: 14px; margin-bottom: 3px; }
+.roommate-item span, .roommate-empty { color: var(--muted); font-size: 12px; line-height: 1.5; }
+@media (max-width: 1180px) { .intent-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+@media (max-width: 760px) { .intent-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 480px) { .intent-grid { grid-template-columns: 1fr; } .intent-card { min-height: auto; } }
+
 ```
 
 ## script.js
@@ -2469,6 +2559,13 @@ function openModal(id){
   document.getElementById(id).style.display='flex';
   if(id==='editProfileModal'){ populateEditProfile(); }
   if(id==='savedPGModal'){ renderSavedPGs(); }
+  if(id==='roommateModal'){
+    const name = document.getElementById('roommateName');
+    const city = document.getElementById('roommateCity');
+    if(name && !name.value) name.value = localStorage.getItem('ss_user') || '';
+    if(city) city.value = activeCity;
+    renderRoommatePosts();
+  }
   document.getElementById('profileMenu').style.display='none';
 }
 
@@ -3356,6 +3453,79 @@ document.addEventListener('click', e => {
     if (dd) dd.classList.add('hidden');
   }
 });
+
+// =====================================================
+//  INTENT HUB + ROOMMATE CONNECT
+// =====================================================
+function handleIntent(type){
+  const tab = document.querySelector(`[data-tab=${type === 'transport' ? 'fare' : type === 'emergency' ? 'helpline' : type === 'navigate' || type === 'food' ? 'nearby' : type === 'roommates' ? 'pg' : type}]`);
+  if(type === 'pg'){
+    switchTab('pg', document.querySelector('[data-tab=pg]'));
+    document.getElementById('pgSearch')?.focus();
+    return;
+  }
+  if(type === 'navigate'){
+    switchTab('guide', document.querySelector('[data-tab=guide]'));
+    return;
+  }
+  if(type === 'ai'){
+    switchTab('ai', document.querySelector('[data-tab=ai]'));
+    const input = document.getElementById('aiInput');
+    if(input){ input.value = 'Help me settle in ' + activeCity; input.focus(); }
+    return;
+  }
+  if(type === 'food'){
+    switchTab('nearby', document.querySelector('[data-tab=nearby]'));
+    const btn = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.textContent.toLowerCase().includes('food'));
+    showCategory('food', btn || document.querySelector('.cat-btn'));
+    return;
+  }
+  if(type === 'transport'){
+    switchTab('fare', document.querySelector('[data-tab=fare]'));
+    return;
+  }
+  if(type === 'roommates'){
+    openModal('roommateModal');
+    return;
+  }
+  if(type === 'emergency'){
+    switchTab('helpline', document.querySelector('[data-tab=helpline]'));
+    return;
+  }
+  if(tab) switchTab(type, tab);
+}
+
+function getRoommatePosts(){
+  return JSON.parse(localStorage.getItem('ss_roommates') || '[]');
+}
+
+function renderRoommatePosts(){
+  const el = document.getElementById('roommateList');
+  if(!el) return;
+  const posts = getRoommatePosts();
+  if(!posts.length){
+    el.innerHTML = '<div class="roommate-empty">No roommate posts yet. Be the first to add one.</div>';
+    return;
+  }
+  el.innerHTML = posts.slice(0, 6).map(p => `
+    <div class="roommate-item">
+      <strong>${escapeHTML(p.name)}</strong>
+      <span>${escapeHTML(p.city)} · ${escapeHTML(p.pref)}</span>
+    </div>`).join('');
+}
+
+function saveRoommatePost(){
+  const name = (document.getElementById('roommateName')?.value || localStorage.getItem('ss_user') || 'Guest').trim();
+  const city = document.getElementById('roommateCity')?.value || activeCity;
+  const pref = (document.getElementById('roommatePref')?.value || '').trim();
+  if(!pref){ alert('Please add your roommate preference or budget.'); return; }
+  const posts = getRoommatePosts();
+  posts.unshift({ name, city, pref, time: Date.now() });
+  localStorage.setItem('ss_roommates', JSON.stringify(posts.slice(0, 20)));
+  document.getElementById('roommatePref').value = '';
+  addNotif('Roommate interest posted locally 👥');
+  renderRoommatePosts();
+}
 
 ```
 

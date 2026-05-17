@@ -132,6 +132,11 @@
         <button class="hero-action" onclick="switchTab('checklist',document.querySelector('[data-tab=checklist]'))">Start Checklist</button>
       </div>
 
+      <div class="hero-actions">
+        <button class="hero-action primary" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))">Explore PGs</button>
+        <button class="hero-action" onclick="switchTab('checklist',document.querySelector('[data-tab=checklist]'))">Start Checklist</button>
+      </div>
+
       <div class="city-selector city-selector-v2">
         <button class="city-btn active" onclick="switchCity('Bhopal',this)">Bhopal</button>
         <button class="city-btn" onclick="switchCity('Delhi',this)">Delhi</button>
@@ -210,14 +215,69 @@
       </div>
     </div>
 
-    <div class="city-selector">
-      <button class="city-btn active" onclick="switchCity('Bhopal',this)">🏛️ Bhopal</button>
-      <button class="city-btn" onclick="switchCity('Delhi',this)">🗼 Delhi</button>
-      <button class="city-btn" onclick="switchCity('Mumbai',this)">🌆 Mumbai</button>
-      <button class="city-btn" onclick="switchCity('Pune',this)">🎓 Pune</button>
-      <button class="city-btn" onclick="switchCity('Patna',this)">🏞️ Patna</button>
-    </div>
+      <div class="city-selector city-selector-v2">
+        <button class="city-btn active" onclick="switchCity('Bhopal',this)">Bhopal</button>
+        <button class="city-btn" onclick="switchCity('Delhi',this)">Delhi</button>
+        <button class="city-btn" onclick="switchCity('Mumbai',this)">Mumbai</button>
+        <button class="city-btn" onclick="switchCity('Pune',this)">Pune</button>
+        <button class="city-btn" onclick="switchCity('Patna',this)">Patna</button>
+      </div>
+    </section>
 
+    <section class="city-console" aria-label="SheherSaathi city dashboard preview">
+      <div class="console-topbar">
+        <span></span><span></span><span></span>
+        <strong>SheherSaathi OS</strong>
+      </div>
+      <div class="console-grid">
+        <article class="console-card console-card-main">
+          <small>Recommended stay</small>
+          <h3>Lake View Girls PG</h3>
+          <p>₹6,500/mo · WiFi · Meals · Security</p>
+          <button onclick="runSmartSearch('Lake View Girls PG')">View match</button>
+        </article>
+        <article class="console-card">
+          <span>🚕</span>
+          <strong>Fare check</strong>
+          <p>Station → MP Nagar<br>₹80–120</p>
+        </article>
+        <article class="console-card">
+          <span>🆘</span>
+          <strong>Safety</strong>
+          <p>112 · Police · Hospital</p>
+        </article>
+        <article class="console-card wide">
+          <span>🤖</span>
+          <strong>AI tip</strong>
+          <p>“Search by budget + gender for faster PG shortlisting.”</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</header>
+
+<section class="quick-strip" aria-label="Platform highlights">
+  <button onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))"><strong id="statPGs">18+</strong><span>PG leads</span></button>
+  <button onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))"><strong>Fare</strong><span>Auto, cab, bike</span></button>
+  <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))"><strong>Budget</strong><span>Monthly planner</span></button>
+  <button onclick="switchTab('helpline',document.querySelector('[data-tab=helpline]'))"><strong>SOS</strong><span>112 + local help</span></button>
+</section>
+
+<section class="intent-hub" aria-label="What do you want to do on SheherSaathi">
+  <div class="intent-heading">
+    <span>Choose your task</span>
+    <h2>Everything you need in a new city</h2>
+    <p>Quick actions for PG search, city navigation, food, transport, roommates, emergency help and AI guidance.</p>
+  </div>
+  <div class="intent-grid">
+    <button class="intent-card" onclick="handleIntent('pg')"><span>🏠</span><strong>Find PG</strong><small>Budget, gender and area filters</small></button>
+    <button class="intent-card" onclick="handleIntent('navigate')"><span>🧭</span><strong>Navigate city</strong><small>Arrival guide and nearby places</small></button>
+    <button class="intent-card" onclick="handleIntent('ai')"><span>🤖</span><strong>Ask AI for help</strong><small>Ask about PGs, fares and safety</small></button>
+    <button class="intent-card" onclick="handleIntent('food')"><span>🍽️</span><strong>Find food</strong><small>Local food spots and essentials</small></button>
+    <button class="intent-card" onclick="handleIntent('transport')"><span>🚕</span><strong>Get transport guidance</strong><small>Fare calculator and travel tips</small></button>
+    <button class="intent-card" onclick="handleIntent('roommates')"><span>👥</span><strong>Connect with roommates</strong><small>Post your roommate preference</small></button>
+    <button class="intent-card danger" onclick="handleIntent('emergency')"><span>🆘</span><strong>Access emergency help</strong><small>Police, ambulance and SOS numbers</small></button>
+  </div>
     <div class="hero-stats" aria-label="SheherSaathi highlights">
       <div class="h-stat"><strong id="statPGs">18+</strong><span>Verified PG leads</span></div>
       <div class="h-stat"><strong>5</strong><span>Student cities</span></div>
@@ -768,6 +828,27 @@
       <button onclick="addNewPG()">✅ Submit Listing</button>
       <button class="btn-ghost" onclick="closeModal('addPGModal')">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- ROOMMATE CONNECT MODAL -->
+<div id="roommateModal" class="overlay hidden">
+  <div class="modal">
+    <div class="modal-top">
+      <h3>👥 Connect with Roommates</h3>
+      <button class="close-btn" onclick="closeModal('roommateModal')">✕</button>
+    </div>
+    <p class="modal-note">Share your city, budget and preference. This saves locally on your device for now.</p>
+    <div class="input-group"><label>Your Name</label><input id="roommateName" class="m-input" placeholder="e.g. Avya"></div>
+    <div class="input-group"><label>City</label>
+      <select id="roommateCity" class="m-input"><option>Bhopal</option><option>Delhi</option><option>Mumbai</option><option>Pune</option><option>Patna</option></select>
+    </div>
+    <div class="input-group"><label>Budget / Preference</label><input id="roommatePref" class="m-input" placeholder="e.g. Boys PG under ₹7000 near MP Nagar"></div>
+    <div class="modal-btns">
+      <button onclick="saveRoommatePost()">Post Interest</button>
+      <button class="btn-ghost" onclick="closeModal('roommateModal')">Close</button>
+    </div>
+    <div id="roommateList" class="roommate-list"></div>
   </div>
 </div>
 

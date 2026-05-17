@@ -506,6 +506,13 @@ function openModal(id){
   document.getElementById(id).style.display='flex';
   if(id==='editProfileModal'){ populateEditProfile(); }
   if(id==='savedPGModal'){ renderSavedPGs(); }
+  if(id==='roommateModal'){
+    const name = document.getElementById('roommateName');
+    const city = document.getElementById('roommateCity');
+    if(name && !name.value) name.value = localStorage.getItem('ss_user') || '';
+    if(city) city.value = activeCity;
+    renderRoommatePosts();
+  }
   document.getElementById('profileMenu').style.display='none';
 }
 
@@ -1393,3 +1400,76 @@ document.addEventListener('click', e => {
     if (dd) dd.classList.add('hidden');
   }
 });
+
+// =====================================================
+//  INTENT HUB + ROOMMATE CONNECT
+// =====================================================
+function handleIntent(type){
+  const tab = document.querySelector(`[data-tab=${type === 'transport' ? 'fare' : type === 'emergency' ? 'helpline' : type === 'navigate' || type === 'food' ? 'nearby' : type === 'roommates' ? 'pg' : type}]`);
+  if(type === 'pg'){
+    switchTab('pg', document.querySelector('[data-tab=pg]'));
+    document.getElementById('pgSearch')?.focus();
+    return;
+  }
+  if(type === 'navigate'){
+    switchTab('guide', document.querySelector('[data-tab=guide]'));
+    return;
+  }
+  if(type === 'ai'){
+    switchTab('ai', document.querySelector('[data-tab=ai]'));
+    const input = document.getElementById('aiInput');
+    if(input){ input.value = 'Help me settle in ' + activeCity; input.focus(); }
+    return;
+  }
+  if(type === 'food'){
+    switchTab('nearby', document.querySelector('[data-tab=nearby]'));
+    const btn = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.textContent.toLowerCase().includes('food'));
+    showCategory('food', btn || document.querySelector('.cat-btn'));
+    return;
+  }
+  if(type === 'transport'){
+    switchTab('fare', document.querySelector('[data-tab=fare]'));
+    return;
+  }
+  if(type === 'roommates'){
+    openModal('roommateModal');
+    return;
+  }
+  if(type === 'emergency'){
+    switchTab('helpline', document.querySelector('[data-tab=helpline]'));
+    return;
+  }
+  if(tab) switchTab(type, tab);
+}
+
+function getRoommatePosts(){
+  return JSON.parse(localStorage.getItem('ss_roommates') || '[]');
+}
+
+function renderRoommatePosts(){
+  const el = document.getElementById('roommateList');
+  if(!el) return;
+  const posts = getRoommatePosts();
+  if(!posts.length){
+    el.innerHTML = '<div class="roommate-empty">No roommate posts yet. Be the first to add one.</div>';
+    return;
+  }
+  el.innerHTML = posts.slice(0, 6).map(p => `
+    <div class="roommate-item">
+      <strong>${escapeHTML(p.name)}</strong>
+      <span>${escapeHTML(p.city)} · ${escapeHTML(p.pref)}</span>
+    </div>`).join('');
+}
+
+function saveRoommatePost(){
+  const name = (document.getElementById('roommateName')?.value || localStorage.getItem('ss_user') || 'Guest').trim();
+  const city = document.getElementById('roommateCity')?.value || activeCity;
+  const pref = (document.getElementById('roommatePref')?.value || '').trim();
+  if(!pref){ alert('Please add your roommate preference or budget.'); return; }
+  const posts = getRoommatePosts();
+  posts.unshift({ name, city, pref, time: Date.now() });
+  localStorage.setItem('ss_roommates', JSON.stringify(posts.slice(0, 20)));
+  document.getElementById('roommatePref').value = '';
+  addNotif('Roommate interest posted locally 👥');
+  renderRoommatePosts();
+}

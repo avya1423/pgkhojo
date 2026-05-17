@@ -1138,3 +1138,55 @@ body::before {
   .city-console { display: none; }
   .quick-strip { grid-template-columns: 1fr; }
 }
+
+/* ===================== INTENT HUB REDESIGN ===================== */
+.intent-hub {
+  width: min(1160px, calc(100% - 32px));
+  margin: 28px auto 0;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: 34px;
+  background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(248,250,252,.78));
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 70px rgba(15,23,42,.1);
+  backdrop-filter: blur(18px);
+}
+.dark .intent-hub { background: linear-gradient(135deg, rgba(15,23,42,.86), rgba(30,41,59,.66)); }
+.intent-heading { max-width: 720px; margin-bottom: 22px; }
+.intent-heading span {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: var(--brand);
+  background: var(--brand-light);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.intent-heading h2 { margin: 12px 0 8px; font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px); letter-spacing: -1.5px; }
+.intent-heading p { color: var(--muted); line-height: 1.7; }
+.intent-grid { display: grid; grid-template-columns: repeat(7, minmax(130px, 1fr)); gap: 12px; }
+.intent-card {
+  min-height: 168px;
+  padding: 18px;
+  text-align: left;
+  border-radius: 26px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 34px rgba(15,23,42,.06);
+}
+.intent-card:hover { transform: translateY(-6px); box-shadow: 0 24px 54px rgba(15,23,42,.12); }
+.intent-card span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 16px; background: var(--input); font-size: 21px; margin-bottom: 14px; }
+.intent-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 16px; color: var(--text); margin-bottom: 7px; }
+.intent-card small { display: block; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.intent-card.danger span { background: #fee2e2; }
+.intent-card.danger strong { color: #dc2626; }
+.modal-note { color: var(--muted); font-size: 13px; line-height: 1.6; margin: -8px 0 16px; }
+.roommate-list { margin-top: 16px; display: grid; gap: 10px; }
+.roommate-item, .roommate-empty { padding: 12px 14px; border-radius: 16px; background: var(--input); border: 1px solid var(--border); }
+.roommate-item strong { display: block; font-size: 14px; margin-bottom: 3px; }
+.roommate-item span, .roommate-empty { color: var(--muted); font-size: 12px; line-height: 1.5; }
+@media (max-width: 1180px) { .intent-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+@media (max-width: 760px) { .intent-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 480px) { .intent-grid { grid-template-columns: 1fr; } .intent-card { min-height: auto; } }
