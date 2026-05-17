@@ -6,6 +6,8 @@ SheherSaathi is a city companion website for students and newcomers. It helps us
 
 If you want to copy-paste the updated code into GitHub, follow the step-by-step guide in [`GITHUB_UPDATE_GUIDE.md`](GITHUB_UPDATE_GUIDE.md).
 
+If you want the complete copy-paste code in one reference file, open [`SHEHERSAATHI_FULL_CODE.md`](SHEHERSAATHI_FULL_CODE.md).
+
 The main files for the homepage are:
 
 - `index.html` — page structure and content
