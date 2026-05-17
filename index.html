@@ -121,8 +121,14 @@
     <div class="hero-search">
       <div class="hero-search-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8460a" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input id="heroSearchInput" placeholder="Search PG, area, or city..." onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
+        <input id="heroSearchInput" placeholder="Search PG, area, amenity, or city..." onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
         <button onclick="doHeroSearch()">Search</button>
+      </div>
+      <div class="smart-chips" aria-label="Popular quick searches">
+        <button onclick="runSmartSearch('PG under 7000')">PG under ₹7k</button>
+        <button onclick="runSmartSearch('Girls PG')">Girls PG</button>
+        <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))">Budget planner</button>
+        <button onclick="switchTab('ai',document.querySelector('[data-tab=ai]'))">Ask AI</button>
       </div>
     </div>
 
@@ -508,30 +514,31 @@
       </svg>
     </div>
     <h2 class="auth-title">Welcome Back</h2>
-    <p class="auth-sub">Sign in to SheherSaathi</p>
+    <p class="auth-sub">Login with a quick OTP — no password needed</p>
     <div id="loginTab" class="auth-tabs">
-      <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
-      <button class="auth-tab" onclick="showAuthTab('register')">Register</button>
+      <button class="auth-tab active" onclick="showAuthTab('login')">OTP Login</button>
+      <button class="auth-tab" onclick="showAuthTab('register')">Create Profile</button>
     </div>
 
-    <!-- LOGIN FORM -->
+    <!-- OTP LOGIN FORM -->
     <div id="loginForm">
       <div class="input-group">
         <label>Full Name</label>
-        <input id="loginName" type="text" placeholder="Enter your name" class="m-input">
+        <input id="loginName" type="text" placeholder="Enter your name" class="m-input" autocomplete="name">
       </div>
       <div class="input-group">
-        <label>Email Address</label>
-        <input id="loginEmail" type="email" placeholder="Enter your email" class="m-input">
+        <label>Email or Phone</label>
+        <input id="loginEmail" type="text" placeholder="Email or 10-digit mobile number" class="m-input" autocomplete="email">
       </div>
-      <div class="input-group">
-        <label>Password</label>
-        <div class="pass-wrap">
-          <input id="loginPass" type="password" placeholder="Enter password" class="m-input">
-          <button class="eye-btn" onclick="togglePass('loginPass')">👁️</button>
+      <button onclick="doLogin()" class="btn-full" id="sendOtpBtn">Send OTP</button>
+      <div id="otpBox" class="otp-box hidden">
+        <div class="otp-status" id="otpStatus">OTP sent.</div>
+        <div class="otp-input-row">
+          <input id="loginOtp" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" class="m-input" autocomplete="one-time-code">
+          <button onclick="verifyOTP()" class="otp-verify-btn">Verify</button>
         </div>
+        <button onclick="resendOTP()" class="otp-resend" id="resendOtpBtn">Resend OTP</button>
       </div>
-      <button onclick="doLogin()" class="btn-full">Sign In</button>
       <button onclick="doGuest()" class="btn-full btn-ghost" style="margin-top:8px">Continue as Guest</button>
     </div>
 
