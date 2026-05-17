@@ -205,6 +205,104 @@ File name: `index.html`
   <button onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))"><strong>Fare</strong><span>Auto, cab, bike</span></button>
   <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))"><strong>Budget</strong><span>Monthly planner</span></button>
   <button onclick="switchTab('helpline',document.querySelector('[data-tab=helpline]'))"><strong>SOS</strong><span>112 + local help</span></button>
+<header class="hero">
+  <div class="hero-orb hero-orb-one"></div>
+  <div class="hero-orb hero-orb-two"></div>
+  <div class="hero-gridlines"></div>
+  <div class="hero-inner">
+    <div class="hero-layout">
+      <section class="hero-copy">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      India's #1 City Companion App
+    </div>
+    <h1 id="heroTitle">Find Your Home<br><em>Away From Home</em></h1>
+    <p class="hero-sub" id="heroSub">PG Finder · Fare Calculator · City Guide · Emergency Helplines</p>
+    <div class="hero-actions">
+      <button class="hero-action primary" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))">Explore PGs</button>
+      <button class="hero-action" onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))">Calculate Fare</button>
+    </div>
+
+    <div class="hero-search">
+      <div class="hero-search-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8460a" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="heroSearchInput" placeholder="Search PG, area, amenity, or city..." onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
+        <button onclick="doHeroSearch()">Search</button>
+      </div>
+      <div class="smart-chips" aria-label="Popular quick searches">
+        <button onclick="runSmartSearch('PG under 7000')">PG under ₹7k</button>
+        <button onclick="runSmartSearch('Girls PG')">Girls PG</button>
+        <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))">Budget planner</button>
+        <button onclick="switchTab('ai',document.querySelector('[data-tab=ai]'))">Ask AI</button>
+      </div>
+    </div>
+
+    <div class="city-selector">
+      <button class="city-btn active" onclick="switchCity('Bhopal',this)">🏛️ Bhopal</button>
+      <button class="city-btn" onclick="switchCity('Delhi',this)">🗼 Delhi</button>
+      <button class="city-btn" onclick="switchCity('Mumbai',this)">🌆 Mumbai</button>
+      <button class="city-btn" onclick="switchCity('Pune',this)">🎓 Pune</button>
+      <button class="city-btn" onclick="switchCity('Patna',this)">🏞️ Patna</button>
+    </div>
+
+    <div class="hero-stats" aria-label="SheherSaathi highlights">
+      <div class="h-stat"><strong id="statPGs">18+</strong><span>Verified PG leads</span></div>
+      <div class="h-stat"><strong>5</strong><span>Student cities</span></div>
+      <div class="h-stat"><strong>Free</strong><span>Owner listing</span></div>
+      <div class="h-stat"><strong>24/7</strong><span>Emergency help</span></div>
+    </div>
+
+    <div class="hero-feature-grid">
+      <button onclick="switchTab('compare',document.querySelector('[data-tab=compare]'))" class="hero-feature-card">
+        <span>⚖️</span><strong>Compare PGs</strong><small>Pick up to 3 stays</small>
+      </button>
+      <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))" class="hero-feature-card">
+        <span>💰</span><strong>Budget Planner</strong><small>Know monthly costs</small>
+      </button>
+      <button onclick="switchTab('checklist',document.querySelector('[data-tab=checklist]'))" class="hero-feature-card">
+        <span>✅</span><strong>Move-in Checklist</strong><small>Never miss a step</small>
+      </button>
+    </div>
+      </section>
+
+      <aside class="hero-device" aria-label="SheherSaathi app preview">
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
+          <div class="phone-top">
+            <span>SheherSaathi</span>
+            <strong>Live city kit</strong>
+          </div>
+          <div class="phone-search">🔎 PG under ₹7k near station</div>
+          <div class="phone-card primary-card">
+            <small>Top match</small>
+            <strong>Lake View Girls PG</strong>
+            <span>₹6,500/mo · WiFi · Meals · Security</span>
+          </div>
+          <div class="phone-card-row">
+            <div class="mini-card">🚕<strong>Fare</strong><span>₹80–120</span></div>
+            <div class="mini-card">🆘<strong>SOS</strong><span>112</span></div>
+          </div>
+          <div class="phone-ai">
+            <div class="ai-dot">AI</div>
+            <p>“Try MP Nagar for budget PGs and easy transport.”</p>
+          </div>
+          <div class="phone-nav"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="floating-card fc-one">✅ OTP Login</div>
+        <div class="floating-card fc-two">⚡ Smart Search</div>
+      </aside>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C360,65 1080,0 1440,35 L1440,60 L0,60Z" fill="var(--bg)"/></svg>
+  </div>
+</header>
+
+<section class="trust-strip" aria-label="Platform highlights">
+  <div><strong>Fast OTP</strong><span>No password friction</span></div>
+  <div><strong>Smart Search</strong><span>City, budget, gender</span></div>
+  <div><strong>AI Guide</strong><span>Works on static hosting</span></div>
+  <div><strong>Safety First</strong><span>SOS and local helplines</span></div>
 </section>
 
 <!-- TAB NAV -->
