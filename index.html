@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SheherSaathi — Your City Companion</title>
+<meta name="description" content="Find verified PGs, compare budgets, calculate city fares, and access emergency help across Indian cities.">
+<meta name="theme-color" content="#0f172a">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -101,6 +103,9 @@
 
 <!-- HERO -->
 <header class="hero">
+  <div class="hero-orb hero-orb-one"></div>
+  <div class="hero-orb hero-orb-two"></div>
+  <div class="hero-gridlines"></div>
   <div class="hero-inner">
     <div class="hero-badge">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -108,12 +113,22 @@
     </div>
     <h1 id="heroTitle">Find Your Home<br><em>Away From Home</em></h1>
     <p class="hero-sub" id="heroSub">PG Finder · Fare Calculator · City Guide · Emergency Helplines</p>
+    <div class="hero-actions">
+      <button class="hero-action primary" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'))">Explore PGs</button>
+      <button class="hero-action" onclick="switchTab('fare',document.querySelector('[data-tab=fare]'))">Calculate Fare</button>
+    </div>
 
     <div class="hero-search">
       <div class="hero-search-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8460a" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input id="heroSearchInput" placeholder="Search PG, area, or city..." onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
+        <input id="heroSearchInput" placeholder="Search PG, area, amenity, or city..." onkeyup="heroSearch(this.value)" onkeydown="if(event.key==='Enter')doHeroSearch()">
         <button onclick="doHeroSearch()">Search</button>
+      </div>
+      <div class="smart-chips" aria-label="Popular quick searches">
+        <button onclick="runSmartSearch('PG under 7000')">PG under ₹7k</button>
+        <button onclick="runSmartSearch('Girls PG')">Girls PG</button>
+        <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))">Budget planner</button>
+        <button onclick="switchTab('ai',document.querySelector('[data-tab=ai]'))">Ask AI</button>
       </div>
     </div>
 
@@ -125,14 +140,23 @@
       <button class="city-btn" onclick="switchCity('Patna',this)">🏞️ Patna</button>
     </div>
 
-    <div class="hero-stats">
-      <div class="h-stat"><strong id="statPGs">18+</strong><span>PGs Listed</span></div>
-      <div class="h-stat-div"></div>
-      <div class="h-stat"><strong>5</strong><span>Cities</span></div>
-      <div class="h-stat-div"></div>
-      <div class="h-stat"><strong>Free</strong><span>Listing</span></div>
-      <div class="h-stat-div"></div>
-      <div class="h-stat"><strong>24/7</strong><span>Support</span></div>
+    <div class="hero-stats" aria-label="SheherSaathi highlights">
+      <div class="h-stat"><strong id="statPGs">18+</strong><span>Verified PG leads</span></div>
+      <div class="h-stat"><strong>5</strong><span>Student cities</span></div>
+      <div class="h-stat"><strong>Free</strong><span>Owner listing</span></div>
+      <div class="h-stat"><strong>24/7</strong><span>Emergency help</span></div>
+    </div>
+
+    <div class="hero-feature-grid">
+      <button onclick="switchTab('compare',document.querySelector('[data-tab=compare]'))" class="hero-feature-card">
+        <span>⚖️</span><strong>Compare PGs</strong><small>Pick up to 3 stays</small>
+      </button>
+      <button onclick="switchTab('budget',document.querySelector('[data-tab=budget]'))" class="hero-feature-card">
+        <span>💰</span><strong>Budget Planner</strong><small>Know monthly costs</small>
+      </button>
+      <button onclick="switchTab('checklist',document.querySelector('[data-tab=checklist]'))" class="hero-feature-card">
+        <span>✅</span><strong>Move-in Checklist</strong><small>Never miss a step</small>
+      </button>
     </div>
   </div>
   <div class="hero-wave">
@@ -143,15 +167,15 @@
 <!-- TAB NAV -->
 <div class="tab-nav-wrap">
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('pg',this)" data-en="🏠 PG Finder" data-hi="🏠 PG खोजें">🏠 PG Finder</button>
-    <button class="tab-btn" onclick="switchTab('fare',this)" data-en="🚗 Fare Calc" data-hi="🚗 किराया">🚗 Fare Calc</button>
-    <button class="tab-btn" onclick="switchTab('guide',this)" data-en="🗺️ City Guide" data-hi="🗺️ सिटी गाइड">🗺️ City Guide</button>
-    <button class="tab-btn" onclick="switchTab('helpline',this)" data-en="📞 Helplines" data-hi="📞 हेल्पलाइन">📞 Helplines</button>
-    <button class="tab-btn" onclick="switchTab('nearby',this)" data-en="📍 Nearby" data-hi="📍 पास में">📍 Nearby</button>
-    <button class="tab-btn" onclick="switchTab('compare',this)" data-en="⚖️ Compare" data-hi="⚖️ तुलना">⚖️ Compare</button>
-    <button class="tab-btn" onclick="switchTab('budget',this)" data-en="💰 Budget" data-hi="💰 बजट">💰 Budget</button>
-    <button class="tab-btn" onclick="switchTab('checklist',this)" data-en="✅ Checklist" data-hi="✅ चेकलिस्ट">✅ Checklist</button>
-    <button class="tab-btn" onclick="switchTab('ai',this)" data-en="🤖 AI Assistant" data-hi="🤖 AI सहायक">🤖 AI Assistant</button>
+    <button class="tab-btn active" onclick="switchTab('pg',this)" data-tab="pg" data-en="🏠 PG Finder" data-hi="🏠 PG खोजें">🏠 PG Finder</button>
+    <button class="tab-btn" onclick="switchTab('fare',this)" data-tab="fare" data-en="🚗 Fare Calc" data-hi="🚗 किराया">🚗 Fare Calc</button>
+    <button class="tab-btn" onclick="switchTab('guide',this)" data-tab="guide" data-en="🗺️ City Guide" data-hi="🗺️ सिटी गाइड">🗺️ City Guide</button>
+    <button class="tab-btn" onclick="switchTab('helpline',this)" data-tab="helpline" data-en="📞 Helplines" data-hi="📞 हेल्पलाइन">📞 Helplines</button>
+    <button class="tab-btn" onclick="switchTab('nearby',this)" data-tab="nearby" data-en="📍 Nearby" data-hi="📍 पास में">📍 Nearby</button>
+    <button class="tab-btn" onclick="switchTab('compare',this)" data-tab="compare" data-en="⚖️ Compare" data-hi="⚖️ तुलना">⚖️ Compare</button>
+    <button class="tab-btn" onclick="switchTab('budget',this)" data-tab="budget" data-en="💰 Budget" data-hi="💰 बजट">💰 Budget</button>
+    <button class="tab-btn" onclick="switchTab('checklist',this)" data-tab="checklist" data-en="✅ Checklist" data-hi="✅ चेकलिस्ट">✅ Checklist</button>
+    <button class="tab-btn" onclick="switchTab('ai',this)" data-tab="ai" data-en="🤖 AI Assistant" data-hi="🤖 AI सहायक">🤖 AI Assistant</button>
   </div>
 </div>
 
@@ -165,7 +189,7 @@
         <h2 id="pg-heading">PGs in Bhopal</h2>
         <p id="pg-count" class="panel-sub"></p>
       </div>
-      <button onclick="openModal('addPGModal')" class="btn-sm">+ List Your PG</button>
+      <button onclick="openModal('addPGModal')" class="btn-sm">+ Add Your PG</button>
     </div>
 
     <div class="filter-bar">
@@ -195,16 +219,6 @@
 
     <div id="pgGrid" class="pg-grid"></div>
 
-    <div class="list-pg-cta">
-      <div class="cta-left">
-        <div class="cta-icon">🏠</div>
-        <div>
-          <strong>Own a PG? List it for FREE!</strong>
-          <p>Reach thousands of students instantly</p>
-        </div>
-      </div>
-      <button onclick="openModal('addPGModal')">+ Add Your PG</button>
-    </div>
   </div>
 
   <!-- FARE CALCULATOR -->
@@ -309,9 +323,7 @@
     <div id="nearbyItems" class="nearby-list"></div>
   </div>
 
-</main>
-
-<!-- COMPARE TAB -->
+  <!-- COMPARE TAB -->
   <div id="tab-compare" class="tab-panel">
     <div class="panel-header">
       <div><h2>⚖️ Compare PGs</h2><p class="panel-sub">Select up to 3 PGs and compare side by side</p></div>
@@ -433,6 +445,7 @@
       </div>
     </div>
   </div>
+</main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -456,9 +469,9 @@
       <div class="footer-col">
         <div class="footer-col-title">Quick Links</div>
         <a href="index.html">Home</a>
-        <a href="#" onclick="switchTab('pg',document.querySelector('.tab-btn'));return false">PG Finder</a>
-        <a href="#" onclick="switchTab('fare',document.querySelectorAll('.tab-btn')[1]);return false">Fare Calculator</a>
-        <a href="#" onclick="switchTab('guide',document.querySelectorAll('.tab-btn')[2]);return false">City Guide</a>
+        <a href="#" onclick="switchTab('pg',document.querySelector('[data-tab=pg]'));return false">PG Finder</a>
+        <a href="#" onclick="switchTab('fare',document.querySelector('[data-tab=fare]'));return false">Fare Calculator</a>
+        <a href="#" onclick="switchTab('guide',document.querySelector('[data-tab=guide]'));return false">City Guide</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Support</div>
@@ -501,30 +514,31 @@
       </svg>
     </div>
     <h2 class="auth-title">Welcome Back</h2>
-    <p class="auth-sub">Sign in to SheherSaathi</p>
+    <p class="auth-sub">Login with a quick OTP — no password needed</p>
     <div id="loginTab" class="auth-tabs">
-      <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
-      <button class="auth-tab" onclick="showAuthTab('register')">Register</button>
+      <button class="auth-tab active" onclick="showAuthTab('login')">OTP Login</button>
+      <button class="auth-tab" onclick="showAuthTab('register')">Create Profile</button>
     </div>
 
-    <!-- LOGIN FORM -->
+    <!-- OTP LOGIN FORM -->
     <div id="loginForm">
       <div class="input-group">
         <label>Full Name</label>
-        <input id="loginName" type="text" placeholder="Enter your name" class="m-input">
+        <input id="loginName" type="text" placeholder="Enter your name" class="m-input" autocomplete="name">
       </div>
       <div class="input-group">
-        <label>Email Address</label>
-        <input id="loginEmail" type="email" placeholder="Enter your email" class="m-input">
+        <label>Email or Phone</label>
+        <input id="loginEmail" type="text" placeholder="Email or 10-digit mobile number" class="m-input" autocomplete="email">
       </div>
-      <div class="input-group">
-        <label>Password</label>
-        <div class="pass-wrap">
-          <input id="loginPass" type="password" placeholder="Enter password" class="m-input">
-          <button class="eye-btn" onclick="togglePass('loginPass')">👁️</button>
+      <button onclick="doLogin()" class="btn-full" id="sendOtpBtn">Send OTP</button>
+      <div id="otpBox" class="otp-box hidden">
+        <div class="otp-status" id="otpStatus">OTP sent.</div>
+        <div class="otp-input-row">
+          <input id="loginOtp" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" class="m-input" autocomplete="one-time-code">
+          <button onclick="verifyOTP()" class="otp-verify-btn">Verify</button>
         </div>
+        <button onclick="resendOTP()" class="otp-resend" id="resendOtpBtn">Resend OTP</button>
       </div>
-      <button onclick="doLogin()" class="btn-full">Sign In</button>
       <button onclick="doGuest()" class="btn-full btn-ghost" style="margin-top:8px">Continue as Guest</button>
     </div>
 
